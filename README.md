@@ -13,6 +13,7 @@
 <br>
 This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.
 <br><br>
+
 [Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
 <br>
 
@@ -24,7 +25,6 @@ This project is an improved version of the capstone project I had done during my
 
 This project is divided into two parts: the network (along with device configurations) and the second part involves automating the end machines running various services using Ansible. 🌐🤖
 
-[Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
 
 
 ## Features
