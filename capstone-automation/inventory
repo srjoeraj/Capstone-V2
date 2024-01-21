@@ -1,6 +1,12 @@
-ubuntu
+[debian]
+adam.ubuntu.project
+patrick.ubuntu.project
+vinnie.debian.project
+tom.ubuntu.project
 
-[rocky]
-ansible1
-ansible2
+[fedora]
+tom.rocky.project
+vinnie.fedora.project
+patrick.rocky.project
+adam.fedora.project
 
