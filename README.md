@@ -2,10 +2,6 @@
 <div align="center">
 
 # Capstone-V2
-
-This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.<br>
- [Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
-<br>
 <div>
 <img src="img/cisco-logo-transparent.png" width="130" height="100" alt="cisco-logo" style="float: left; padding: 3px 3px 0px 5px;" />
 <img src="img/ubuntu-logo.png" width="100" height="100" alt="ubuntu-logo"  style="float: left; padding: 3px 3px 0px 5px;" />
@@ -13,6 +9,12 @@ This project is an improved version of the capstone project I had done during my
 <img src="img/ansible-logo.png" width="100" height="100" alt="ansible-logo"  style="float: left; padding: 3px 3px 0px 5px;"/>
 
 </div>
+
+<br>
+This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.<br><br>
+ [Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
+<br>
+
 
 </div>
 
