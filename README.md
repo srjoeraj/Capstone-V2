@@ -11,8 +11,9 @@
 </div>
 
 <br>
-This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.<br><br>
- [Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
+This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.
+<br><br>
+[Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
 <br>
 
 
