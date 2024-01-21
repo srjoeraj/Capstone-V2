@@ -1,0 +1,64 @@
+en
+conf t
+hostname Switch-30
+ip domain-name capstone.project
+enable secret password
+!
+vtp mode server
+vtp domain vtp30
+!
+vlan 15
+vlan 30
+vlan 45
+vlan 60
+vlan 99
+vlan 250
+!
+spanning-tree vlan 1 root primary
+!
+
+int range fa 0/1 - 2
+switchport access vlan 30
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+!
+int range fa 0/3 - 22
+switchport access vlan 99
+spanning-tree portfast
+spanning-tree bpduguard enable
+!
+int gig 0/1
+switchport mode trunk
+switchport trunk allowed vlan 15,30,45,60,250
+!
+int gig 0/2
+switchport mode trunk
+switchport trunk allowed vlan 15,30,45,60,250
+!
+int range fa 0/23 - 24
+channel-protocol lacp
+channel-group 1 mode active
+!
+int po1
+switchport mode trunk
+switchport trunk allowed vlan 15,30,45,60,250
+!
+int vlan 250
+ip address 172.16.250.30 255.255.255.0
+no shut
+!
+ip default-gateway 172.16.250.1
+!
+!SSH setup script -- run this script separately!
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 4
+transport input ssh 
+login local
+username admin password sshpassword
+exit

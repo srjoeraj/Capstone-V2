@@ -1,0 +1,68 @@
+en
+conf t
+hostname Switch-60
+ip domain-name capstone.project
+enable secret password
+!
+vtp mode client
+vtp domain vtp30
+!
+ip dhcp snooping
+ip dhcp snooping vlan 100
+ip dhcp snooping vlan 77
+ip dhcp snooping vlan 98
+ip dhcp snooping vlan 106
+ip dhcp snooping vlan 250
+no ip dhcp snooping information option
+!
+ip arp inspection vlan 100
+ip arp inspection vlan 77
+ip arp inspection vlan 98
+ip arp inspection vlan 106
+ip arp inspection vlan 250
+ip arp inspection validate dst-mac ip src-mac
+
+!
+int range fa 0/1 - 2
+switchport access vlan 60
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+!
+
+int range fa 0/3 - 22
+switchport access vlan 99
+spanning-tree portfast
+spanning-tree bpduguard enable
+!
+int gig 0/1
+switchport mode trunk
+switchport trunk allowed vlan 15,30,45,60,250
+ip dhcp snooping trust
+ip arp inspection trust 
+!
+int fa 0/23
+switchport mode trunk
+switchport trunk allowed vlan 15,30,45,60,99,250
+ip dhcp snooping trust
+ip arp inspection trust 
+!
+int vlan 250
+ip address 172.16.250.60 255.255.255.0
+no shut
+!
+ip default-gateway 172.16.250.1
+!
+
+!SSH setup script -- run this script separately!
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 4
+transport input ssh 
+login local
+username admin password sshpassword
+exit

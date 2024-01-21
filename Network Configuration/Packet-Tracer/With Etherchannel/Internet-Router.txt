@@ -1,0 +1,22 @@
+en
+conf t
+int fa 0/0
+ip address 18.0.15.2 255.255.255.252
+no shut
+ip access-group 120 in
+!
+int fa 0/1
+ip address 18.0.60.2 255.255.255.252
+no shut
+ip access-group 120 in
+!
+int lo1
+ip address 200.15.50.1 255.255.255.0
+no shut
+!
+access-list 120 deny ip 172.16.0.0 0.15.255.255 any
+access-list 120 deny ip 192.168.0.0 0.0.255.255 any
+access-list 120 permit ip any any
+!
+ip route 0.0.0.0 0.0.0.0 fa 0/0
+ip route 0.0.0.0 0.0.0.0 fa 0/1 50

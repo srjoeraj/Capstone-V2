@@ -1,0 +1,112 @@
+en
+conf t
+hostname Router-30
+ip domain-name capstone.project
+enable secret password
+!
+int fa 0/0
+no shut
+!
+int s0/0/1 
+ip access-group 110 in
+ip address 192.168.15.2 255.255.255.252
+no shut
+!
+int s 0/0/0
+clock rate 56000
+ip access-group 110 in
+ip address 192.168.30.1 255.255.255.252
+no shut
+!
+int fa 0/0.15
+encapsulation dot1q 15
+ip address 172.16.15.3 255.255.255.0
+standby 1 ip 172.16.15.1
+standby 1 preempt
+standby 1 priority 104
+ip access-group 110 in
+!
+int fa 0/0.30
+encapsulation dot1q 30
+ip address 172.16.30.3 255.255.255.0
+standby 2 ip 172.16.30.1
+standby 2 preempt
+standby 2 priority 105
+ip access-group 110 in
+!
+int fa 0/0.45
+encapsulation dot1q 45
+ip address 172.16.45.3 255.255.255.0
+standby 3 ip 172.16.45.1
+standby 3 preempt
+standby 3 priority 103
+ip access-group 110 in
+!
+int fa 0/0.60
+encapsulation dot1q 60
+ip address 172.16.60.3 255.255.255.0
+standby 4 ip 172.16.60.1
+standby 4 preempt
+standby 4 priority 103
+ip access-group 110 in
+!
+int fa 0/0.250
+encapsulation dot1q 250
+ip address 172.16.250.3 255.255.255.0
+standby 5 ip 172.16.250.1
+standby 5 preempt
+standby 5 priority 105
+ip access-group 110 in
+!
+ip dhcp pool net15
+network 172.16.15.0 255.255.255.0
+default-router 172.16.15.1
+!
+ip dhcp pool net30
+network 172.16.30.0 255.255.255.0
+default-router 172.16.30.1
+!
+ip dhcp pool net45
+network 172.16.45.0 255.255.255.0
+default-router 172.16.45.1
+!
+ip dhcp pool net60
+network 172.16.60.0 255.255.255.0
+default-router 172.16.60.1
+!
+ip dhcp excluded-address 172.16.15.1 172.16.15.60
+ip dhcp excluded-address 172.16.15.121 172.16.15.254
+ip dhcp excluded-address 172.16.30.1 172.16.30.60
+ip dhcp excluded-address 172.16.30.121 172.16.30.254
+ip dhcp excluded-address 172.16.45.1 172.16.45.60
+ip dhcp excluded-address 172.16.45.121 172.16.45.254
+ip dhcp excluded-address 172.16.60.1 172.16.60.60
+ip dhcp excluded-address 172.16.60.121 172.16.60.254
+!
+router ospf 10
+router-id 2.2.2.2
+network 192.168.15.0 0.0.0.3 area 0
+network 192.168.30.0 0.0.0.3 area 0
+network 172.16.15.0 0.0.0.255 area 0
+network 172.16.30.0 0.0.0.255 area 0
+network 172.16.45.0 0.0.0.255 area 0
+network 172.16.60.0 0.0.0.255 area 0
+!
+access-list 110 deny tcp any 192.168.15.0 0.0.0.255 eq 22
+access-list 110 deny tcp any 172.16.15.0 0.0.0.255 eq 22
+access-list 110 deny tcp any 172.16.30.0 0.0.0.255 eq 22
+access-list 110 deny tcp any 172.16.45.0 0.0.0.255 eq 22
+access-list 110 deny tcp any 172.16.60.0 0.0.0.255 eq 22
+access-list 110 permit ip any any
+!
+!SSH setup script -- run this script separately!
+ip ssh port 22225 rotary 1
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 4
+rotary 1
+transport input ssh 
+login local
+username admin password cproject
+exit
