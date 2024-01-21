@@ -1,0 +1,47 @@
+# List of variables for the playbook
+#
+#
+
+user_list:
+  - cp-user
+  - cp-admin
+  - cp-guest
+
+user_for_ssh: cp-user
+
+
+web_server_port: 8089
+
+db_port: 6612
+
+db_password: "password"
+
+def_password: "password"
+
+db_bind_address:  "0.0.0.0"
+
+ssh_key_filename: sshkey
+
+ssh_passphrase: ""
+
+apt_package_list:
+  - apache2
+  - mariadb-server
+  - vim 
+  - firewalld
+
+
+dnf_package_list:
+  - httpd
+  - mariadb
+  - vim
+  - mariadb-server
+
+
+firewall_rules:
+ - port: 8089/tcp
+ - port: 6612/tcp
+ - port: 22/tcp
+
+
+firewall_name: "firewalld"

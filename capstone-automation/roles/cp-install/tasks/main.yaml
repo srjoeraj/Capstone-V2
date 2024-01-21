@@ -1,0 +1,12 @@
+---
+- name: Install tasks using apt
+  ansible.builtin.include_tasks: setup-apt.yaml
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install tasks using dnf
+  ansible.builtin.include_tasks: setup-dnf.yaml
+  when: ansible_facts['os_family'] == "RedHat"
+
+
+
+   

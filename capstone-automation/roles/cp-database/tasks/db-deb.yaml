@@ -1,0 +1,14 @@
+---
+- name: Defining variables
+  set_fact:
+    db_conf_file: "/etc/mysql/mariadb.conf.d/50-server.cnf"
+    db_service_name: "mariadb"
+
+
+- name: Modifying the configuration file via template
+  template:
+    src: 50-server.j2
+    dest: "{{ db_conf_file }}"
+
+  notify: "restart"
+

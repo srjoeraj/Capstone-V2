@@ -1,0 +1,15 @@
+---
+
+- name: Update all packages
+  become: yes
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Installing services using dnf 
+  become: yes
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ dnf_package_list }}"
+    

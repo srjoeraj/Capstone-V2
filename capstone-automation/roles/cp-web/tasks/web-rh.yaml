@@ -1,0 +1,47 @@
+---
+- name: Defining variable for dnf users
+  ansible.builtin.set_fact:
+    web_service_name: "httpd"
+    web_dir: "/var/www/html"
+    web_conf_dir: "/etc/httpd/conf/httpd.conf"
+
+
+- name: Changing default port to "{{ web_server_port }}"
+  ansible.builtin.replace:
+    path: "{{ web_conf_dir }}"
+    regexp: '^Listen .*'
+    replace: 'Listen {{ web_server_port }}'
+  notify: "restart"
+
+- name: create index.html
+  template:
+    src: www-index.j2
+    dest: "{{ web_dir }}/index.html"
+    mode: 0644
+  notify: "restart"
+
+- name: changing selinux port for httpd
+  community.general.seport:
+    ports: "{{ web_server_port }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  notify: "restart"
+    
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+

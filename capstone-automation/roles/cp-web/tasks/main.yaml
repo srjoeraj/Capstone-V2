@@ -1,0 +1,17 @@
+---
+- name: for rocky/fedora users
+  ansible.builtin.include_tasks: web-rh.yaml
+  when: ansible_facts['os_family'] == "RedHat"   
+
+- name: for ubuntu users
+  ansible.builtin.include_tasks: web-deb.yaml
+  when: ansible_facts['os_family'] == "Debian"
+
+
+
+
+
+
+
+
+

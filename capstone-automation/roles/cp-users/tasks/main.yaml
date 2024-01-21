@@ -1,0 +1,49 @@
+---
+- name: Creating users on the machines
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+    update_password: on_create
+    password: "{{ def_password | password_hash('sha512') }}"
+    generate_ssh_key: yes
+    ssh_key_type: rsa
+    ssh_key_bits: 4096
+    ssh_key_file: ".ssh/{{ ssh_key_filename }}"
+    ssh_key_passphrase: "{{ ssh_passphrase }}"
+    force: true
+  loop: "{{ user_list }}"
+
+
+- name: Fetch keys from the server
+  ansible.builtin.fetch:
+    src: "/home/{{ item }}/.ssh/{{ ssh_key_filename }}.pub"
+    dest: "/tmp/{{ ansible_hostname }}_{{ ssh_key_filename }}.pub"
+
+    flat: yes
+  loop: "{{ user_list }}"
+
+- name: Give sudo priv to "{{ item }}"
+  become: yes
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ item }}"
+    content: "{{ item }} ALL=(ALL) ALL"
+  loop:  "{{ user_list }}"
+
+
+- name: transfering keys
+  authorized_key:
+    user: "{{ user_for_ssh }}"
+    state: present
+    key: "{{ lookup('file', '/tmp/{{ item }}_{{ ssh_key_filename }}.pub') }}"
+  when: "{{ item != ansible_hostname }}"
+  loop: "{{ groups['all'] }}"
+
+
+
+
+
+
+
+
+
+   

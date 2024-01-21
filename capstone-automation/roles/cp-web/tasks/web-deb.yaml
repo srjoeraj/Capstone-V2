@@ -1,0 +1,47 @@
+---
+- name: Defining variable for apt users
+  ansible.builtin.set_fact:
+    web_service_name: apache2
+    web_dir: "/var/www/html"
+    web_port_dir: "/etc/apache2/ports.conf"
+    web_conf_dir: "/etc/apache2/sites-enabled/000-default.conf"
+
+
+- name: Changing default port to "{{ web_server_port }}" in "{{ web_port_dir }}"
+  ansible.builtin.replace:
+    path: "{{ web_port_dir }}"
+    regexp: '^Listen .*'
+    replace: 'Listen {{ web_server_port }}'
+  notify: "restart"
+
+- name: Changing default port to "{{ web_server_port }}" in "{{ web_conf_dir }}"
+  ansible.builtin.replace:
+    path: "{{ web_conf_dir }}"
+    regexp: "^<VirtualHost .*>"
+    replace: "<VirtualHost *:{{ web_server_port }}>"
+  notify: "restart"
+
+- name: create index.html
+  template:
+    src: www-index.j2
+    dest: "{{ web_dir }}/index.html"
+    mode: 0644
+  notify: "restart"
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

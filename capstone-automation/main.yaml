@@ -1,0 +1,16 @@
+---
+- name: Capstone Automation Playbook
+  hosts: all
+
+  roles:
+
+
+    - role: cp-users
+      tag: cp-users
+
+
+
+  tasks:
+  - debug:
+      msg: "Done perfectly on {{ ansible_distribution }}"
+

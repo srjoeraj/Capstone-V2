@@ -1,0 +1,21 @@
+---
+- name: Configuring firewalld
+  ansible.posix.firewalld: 
+    port: "{{ item.port }}"
+    permanent: yes
+    state: enabled
+
+  loop: "{{ firewall_rules }}"
+  notify: "restart"
+
+
+
+
+      
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+---
+- name: Defining variables
+  set_fact:
+    db_conf_file: "/etc/my.cnf.d/mariadb-server.cnf"
+    db_service_name: "mariadb"
+
+
+- name: Modifying the configuration file via template
+  template:
+    src: mariadb-server.j2
+    dest: "{{ db_conf_file }}"
+
+- name: Configuring selinux for mariadb
+  community.general.seport:
+    ports: "{{ db_port }}"
+    proto: tcp
+    setype: mysqld_port_t
+    state: present
+
+  notify: "restart"
+
