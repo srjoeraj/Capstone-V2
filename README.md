@@ -1,3 +1,11 @@
+
+<div align="center">
+
+# Capstone-V2
+
+This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.<br>
+ [Description](#description) [Features](#features) [Requirements](#requirements) [Project Structure](#project-structure) [Installation](#installation) [Results](#end-results)
+<br>
 <div>
 <img src="img/cisco-logo-transparent.png" width="130" height="100" alt="cisco-logo" style="float: left; padding: 3px 3px 0px 5px;" />
 <img src="img/ubuntu-logo.png" width="100" height="100" alt="ubuntu-logo"  style="float: left; padding: 3px 3px 0px 5px;" />
@@ -5,22 +13,15 @@
 <img src="img/ansible-logo.png" width="100" height="100" alt="ansible-logo"  style="float: left; padding: 3px 3px 0px 5px;"/>
 
 </div>
----
-<div align="center">
 
-# Capstone-V2
-
-This project is an improved version of the capstone project I had done during my final semester in the CSN program at Seneca College. 🚀.
- [Description]() [Features]() [Requirements]() [Project Structure]() [Installation]() [Output]()
 </div>
 
----
 
 ## Description
 
 This project is divided into two parts: the network (along with device configurations) and the second part involves automating the end machines running various services using Ansible. 🌐🤖
 
----
+
 
 ## Features
 
@@ -30,7 +31,6 @@ This project is divided into two parts: the network (along with device configura
 4. 🔄 Replicable on multiple devices simultaneously.
 5. 🐧🎩 Compatible with Debian and RedHat based distributions.
 
----
 
 ## Requirements
 
@@ -41,7 +41,6 @@ This project is divided into two parts: the network (along with device configura
 - A minimum of 4 end-user machines running Linux belonging to [Debian Family](https://en.wikipedia.org/wiki/Category:Debian-based_distributions) or [RedHat Family](https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux_derivatives).
     - I recommend using Rocky/Alma Linux instead of RHEL to avoid issues with the subscription manager.
 
----
 
 ## Project Structure
 ```
@@ -52,8 +51,6 @@ $PROJECT_ROOT
 └── Network Configuration
 
 ```
-
----
 
 ## Installation
 - Clone the repository to access the files.
@@ -77,7 +74,6 @@ $PROJECT_ROOT
 cd capstone-automation
 ansible-playbook main.yaml -b -k -K
 ```
----
 
 ## End Results
 ### Network Topology:
@@ -128,7 +124,6 @@ ansible-playbook main.yaml -b -k -K
 
 - **Development Tools:**
   - [Vim](https://github.com/vim/vim) installed to edit text.
----
 
 ## Author
 
