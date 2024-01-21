@@ -17,7 +17,7 @@
 - name: Fetch keys from the server
   ansible.builtin.fetch:
     src: "/home/{{ item }}/.ssh/{{ ssh_key_filename }}.pub"
-    dest: "/tmp/{{ ansible_hostname }}_{{ ssh_key_filename }}.pub"
+    dest: "/tmp/{{ inventory_hostname }}_{{ ssh_key_filename }}.pub"
 
     flat: yes
   loop: "{{ user_list }}"
@@ -35,7 +35,7 @@
     user: "{{ user_for_ssh }}"
     state: present
     key: "{{ lookup('file', '/tmp/{{ item }}_{{ ssh_key_filename }}.pub') }}"
-  when: "{{ item != ansible_hostname }}"
+  when: "{{ item != inventory_hostname }}"
   loop: "{{ groups['all'] }}"
 
 

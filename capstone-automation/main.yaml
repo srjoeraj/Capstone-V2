@@ -3,10 +3,19 @@
   hosts: all
 
   roles:
+    - role: cp-install
+      tag: install
 
+    - role: cp-web
+      tag: web
+
+    - role: cp-database
 
     - role: cp-users
-      tag: cp-users
+      tag: users
+
+    - role: cp-firewall
+      tag: firewall
 
 
 

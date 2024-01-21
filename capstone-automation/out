@@ -1,0 +1,141 @@
+~/capstone-automation took 31s 
+❯ ansible-playbook main.yaml 
+
+PLAY [Capstone Automation Playbook] **************************************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************************************************
+ok: [adam.ubuntu.project]
+ok: [tom.rocky.project]
+
+TASK [cp-install : Install tasks using apt] ******************************************************************************************************************
+skipping: [tom.rocky.project]
+included: /home/ansible/capstone-automation/roles/cp-install/tasks/setup-apt.yaml for adam.ubuntu.project
+
+TASK [cp-install : Updating all packages] ********************************************************************************************************************
+changed: [adam.ubuntu.project]
+
+TASK [cp-install : Installing services using apt] ************************************************************************************************************
+ok: [adam.ubuntu.project] => (item=apache2)
+ok: [adam.ubuntu.project] => (item=mariadb-server)
+ok: [adam.ubuntu.project] => (item=vim)
+ok: [adam.ubuntu.project] => (item=firewalld)
+
+TASK [cp-install : Install tasks using dnf] ******************************************************************************************************************
+skipping: [adam.ubuntu.project]
+included: /home/ansible/capstone-automation/roles/cp-install/tasks/setup-dnf.yaml for tom.rocky.project
+
+TASK [cp-install : Update all packages] **********************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-install : Installing services using dnf] ************************************************************************************************************
+ok: [tom.rocky.project] => (item=httpd)
+ok: [tom.rocky.project] => (item=mariadb)
+ok: [tom.rocky.project] => (item=vim)
+ok: [tom.rocky.project] => (item=mariadb-server)
+
+TASK [cp-web : for rocky/fedora users] ***********************************************************************************************************************
+skipping: [adam.ubuntu.project]
+included: /home/ansible/capstone-automation/roles/cp-web/tasks/web-rh.yaml for tom.rocky.project
+
+TASK [cp-web : Defining variable for dnf users] **************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-web : Changing default port to "8089"] **************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-web : create index.html] ****************************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-web : changing selinux port for httpd] **************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-web : for ubuntu users] *****************************************************************************************************************************
+skipping: [tom.rocky.project]
+included: /home/ansible/capstone-automation/roles/cp-web/tasks/web-deb.yaml for adam.ubuntu.project
+
+TASK [cp-web : Defining variable for apt users] **************************************************************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-web : Changing default port to "8089" in "/etc/apache2/ports.conf"] *********************************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-web : Changing default port to "8089" in "/etc/apache2/sites-enabled/000-default.conf"] *************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-web : create index.html] ****************************************************************************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-database : for rocky/fedora users] ******************************************************************************************************************
+skipping: [adam.ubuntu.project]
+included: /home/ansible/capstone-automation/roles/cp-database/tasks/db-rh.yaml for tom.rocky.project
+
+TASK [cp-database : Defining variables] **********************************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-database : Modifying the configuration file via template] *******************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-database : Configuring selinux for mariadb] *********************************************************************************************************
+ok: [tom.rocky.project]
+
+TASK [cp-database : for ubuntu users] ************************************************************************************************************************
+skipping: [tom.rocky.project]
+included: /home/ansible/capstone-automation/roles/cp-database/tasks/db-deb.yaml for adam.ubuntu.project
+
+TASK [cp-database : Defining variables] **********************************************************************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-database : Modifying the configuration file via template] *******************************************************************************************
+ok: [adam.ubuntu.project]
+
+TASK [cp-users : Creating users on the machines] *************************************************************************************************************
+ok: [tom.rocky.project] => (item=cp-user)
+ok: [adam.ubuntu.project] => (item=cp-user)
+ok: [adam.ubuntu.project] => (item=cp-admin)
+ok: [tom.rocky.project] => (item=cp-admin)
+ok: [adam.ubuntu.project] => (item=cp-guest)
+ok: [tom.rocky.project] => (item=cp-guest)
+
+TASK [cp-users : Fetch keys from the server] *****************************************************************************************************************
+changed: [adam.ubuntu.project] => (item=cp-user)
+changed: [tom.rocky.project] => (item=cp-user)
+changed: [adam.ubuntu.project] => (item=cp-admin)
+changed: [tom.rocky.project] => (item=cp-admin)
+changed: [adam.ubuntu.project] => (item=cp-guest)
+changed: [tom.rocky.project] => (item=cp-guest)
+
+TASK [cp-users : Give sudo priv to "{{ item }}"] *************************************************************************************************************
+ok: [adam.ubuntu.project] => (item=cp-user)
+ok: [tom.rocky.project] => (item=cp-user)
+ok: [adam.ubuntu.project] => (item=cp-admin)
+ok: [tom.rocky.project] => (item=cp-admin)
+ok: [adam.ubuntu.project] => (item=cp-guest)
+ok: [tom.rocky.project] => (item=cp-guest)
+
+TASK [cp-users : transfering keys] ***************************************************************************************************************************
+[WARNING]: conditional statements should not include jinja2 templating delimiters such as {{ }} or {% %}. Found: {{ item != inventory_hostname }}
+skipping: [adam.ubuntu.project] => (item=adam.ubuntu.project) 
+[WARNING]: conditional statements should not include jinja2 templating delimiters such as {{ }} or {% %}. Found: {{ item != inventory_hostname }}
+ok: [adam.ubuntu.project] => (item=tom.rocky.project)
+ok: [tom.rocky.project] => (item=adam.ubuntu.project)
+skipping: [tom.rocky.project] => (item=tom.rocky.project) 
+
+TASK [cp-firewall : Configuring firewalld] *******************************************************************************************************************
+ok: [adam.ubuntu.project] => (item={'port': '8089/tcp'})
+ok: [tom.rocky.project] => (item={'port': '8089/tcp'})
+ok: [adam.ubuntu.project] => (item={'port': '6612/tcp'})
+ok: [tom.rocky.project] => (item={'port': '6612/tcp'})
+ok: [adam.ubuntu.project] => (item={'port': '22/tcp'})
+ok: [tom.rocky.project] => (item={'port': '22/tcp'})
+
+TASK [debug] *************************************************************************************************************************************************
+ok: [adam.ubuntu.project] => {
+    "msg": "Done perfectly on Ubuntu"
+}
+ok: [tom.rocky.project] => {
+    "msg": "Done perfectly on Rocky"
+}
+
+PLAY RECAP ***************************************************************************************************************************************************
+adam.ubuntu.project        : ok=18   changed=2    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+tom.rocky.project          : ok=19   changed=1    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0 
