@@ -27,8 +27,7 @@ This project is an improved version of the capstone project I had done during my
 
 ## Description
 
-This project is divided into two parts: the network (along with device configurations) and the second part involves automating the end machines running various services using Ansible. 🌐🤖
-
+This project entails establishing a secure network topology, featuring various Cisco switches and routers. The configuration is optimized to handle both layer 2 and layer 3 networking tasks, with a primary focus on security and practicality. Additionally, end machines are automated using Ansible for streamlined management and maintenance.
 
 
 ## Features
